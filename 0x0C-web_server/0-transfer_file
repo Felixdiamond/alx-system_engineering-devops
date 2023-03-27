@@ -2,7 +2,6 @@
 
 # Check that 4 parameters were passed
 if [ $# -ne 4 ]; then
-  echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
   exit 1
 fi
 
