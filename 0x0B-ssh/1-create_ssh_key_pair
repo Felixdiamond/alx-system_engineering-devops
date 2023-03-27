@@ -1,6 +1,4 @@
 #!/bin/bash
 
-# Generate an RSA key pair with a 4096-bit key length and a passphrase
+# Generates an RSA key pair to enter Alfheim Online
 ssh-keygen -t rsa -b 4096 -f school -N "betty"
-
-echo "RSA key pair created successfully!"
