@@ -1,19 +1,32 @@
 #!/bin/bash
 
-# Check that 4 parameters were passed
 if [ $# -ne 4 ]; then
+  echo "Usage: $0 <source_file_path> <server_ip> <server_username> <ssh_key_path>"
   exit 1
 fi
 
-# Assign parameters to variables
-path_to_file=$1
-ip=$2
-username=$3
-path_to_ssh_key=$4
+SOURCE_FILE_PATH=$1
+SERVER_IP=$2
+SERVER_USERNAME=$3
+SSH_KEY_PATH=$4
 
-# Use scp to transfer the file to the server
-scp -o StrictHostKeyChecking=no -i "$path_to_ssh_key" "$path_to_file" "$username@$ip:~/"
+if [ ! -f "$SOURCE_FILE_PATH" ]; then
+  echo "Error: Source file does not exist or is not a file: $SOURCE_FILE_PATH"
+  exit 1
+fi
 
-# Exit with the scp exit code
-exit $?
+if [ ! -f "$SSH_KEY_PATH" ]; then
+  echo "Error: SSH key file does not exist or is not a file: $SSH_KEY_PATH"
+  exit 1
+fi
+
+scp -o StrictHostKeyChecking=no -i "$SSH_KEY_PATH" "$SOURCE_FILE_PATH" "$SERVER_USERNAME@$SERVER_IP:~"
+
+if [ $? -ne 0 ]; then
+  echo "Error: Failed to transfer file."
+  exit 1
+fi
+
+echo "File transferred successfully."
+exit 0
 
