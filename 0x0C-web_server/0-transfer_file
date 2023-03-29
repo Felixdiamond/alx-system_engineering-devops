@@ -1,32 +1,17 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Check if at least 4 parameters are passed, else display usage message
 
-if [ $# -ne 4 ]; then
-  echo "Usage: $0 <source_file_path> <server_ip> <server_username> <ssh_key_path>"
+if [ "$#" -lt 4 ]; then
+  echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
   exit 1
 fi
 
-SOURCE_FILE_PATH=$1
-SERVER_IP=$2
-SERVER_USERNAME=$3
-SSH_KEY_PATH=$4
+# Set variables for parameters
+PATH_TO_FILE="$1"
+IP="$2"
+USERNAME="$3"
+PATH_TO_SSH_KEY="$4"
 
-if [ ! -f "$SOURCE_FILE_PATH" ]; then
-  echo "Error: Source file does not exist or is not a file: $SOURCE_FILE_PATH"
-  exit 1
-fi
-
-if [ ! -f "$SSH_KEY_PATH" ]; then
-  echo "Error: SSH key file does not exist or is not a file: $SSH_KEY_PATH"
-  exit 1
-fi
-
-scp -o StrictHostKeyChecking=no -i "$SSH_KEY_PATH" "$SOURCE_FILE_PATH" "$SERVER_USERNAME@$SERVER_IP:~"
-
-if [ $? -ne 0 ]; then
-  echo "Error: Failed to transfer file."
-  exit 1
-fi
-
-echo "File transferred successfully."
-exit 0
+# Transfer the file to the user's home directory on the server using scp
+scp -o StrictHostKeyChecking=no -i "$PATH_TO_SSH_KEY" "$PATH_TO_FILE" "$USERNAME@$IP:~/"
 
