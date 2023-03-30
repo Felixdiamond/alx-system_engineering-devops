@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Adds a 301 moved permanently at the /redirect_me path
+# Update package list
+sudo apt-get update
+
+# Install Nginx web server
+sudo apt-get install -y nginx
+
+# Replace the default server block with a new one that redirects /redirect_me to the new location
+sudo sed -i '/^#\?server_name _;/a \\n\
+    location /redirect_me {\n\
+        return 301;\n\
+    }' /etc/nginx/sites-available/default
+
+# Restart Nginx to apply the changes
+sudo service nginx restart
+
