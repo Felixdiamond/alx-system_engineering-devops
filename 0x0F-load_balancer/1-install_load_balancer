@@ -3,21 +3,12 @@
 
 # Installing HAproxy
 sudo apt-get -y update
-sudo apt-get install --no-install-recommends software-properties-common
-sudo add-apt-repository ppa:vbernat/haproxy-2.7
+sudo apt-get -y install --no-install-recommends software-properties-common
+sudo -y add-apt-repository ppa:vbernat/haproxy-2.7
 sudo apt-get install haproxy=2.7.\*
 
 # Configure HAproxy
-sudo tee /etc/haproxy/haproxy.cfg <<EOF
-frontend zenitsu
-    bind *:80
-    default_backend tanjiro
-
-backend servers
-    balance roundrobin
-    server 146366-web-01 100.26.173.94:80 check
-    server 146366-web-02 35.153.79.52:80 check
-EOF
+echo -e "frontend zenitsu\n\tbind *:80\n\tdefault_backend tanjiro\n\nbackend tanjiro\n\tbalance roundrobin\n\tserver 146366-web-01 100.26.173.94:80 check\n\tserver 146366-web-02 35.153.79.52:80 check\n" >> /etc/haproxy/haproxy.cfg
 
 # Restarts HAproxy
 sudo service haproxy restart
