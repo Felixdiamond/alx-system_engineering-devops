@@ -1,18 +1,15 @@
-class { 'nginx':
-  # Install Nginx
-  ensure => present,
+# Set up the package manager
+class { '::apt':
+  update => {
+    frequency => 'daily',
+  },
 }
 
-file { '/etc/nginx/conf.d/custom_http_headers.conf':
-  # Create a new file to hold custom HTTP headers
-  ensure  => file,
-  content => "add_header X-Served-By $hostname;\n",
-  notify  => Service['nginx'],
-}
-
-service { 'nginx':
-  # Restart Nginx to apply changes
-  ensure => running,
-  enable => true,
+# Install Nginx and set up the custom HTTP header
+class { '::nginx':
+  # Add the custom header
+  header => [
+    'add_header X-Served-By $hostname;',
+  ],
 }
 
