@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+sed -i 's/8080/80/' /etc/nginx/sites-enabled/default
+nginx -t
+if [ $? -eq 0 ]; then
+  pkill nginx
+  nginx
+fi
+
