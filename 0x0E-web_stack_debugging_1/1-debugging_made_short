@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
-sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
-nginx -t
-nginx -s reload
+sed -i 's/listen 8080/listen 80/g' /etc/nginx/sites-enabled/default
+service nginx restart
