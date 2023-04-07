@@ -1,17 +1,23 @@
 #!/usr/bin/env bash
 # Function to display information about a specific subdomain
 
-display_info ()
-{
+display_info() {
     domain="$1"
     subdomain="$2"
-    dig "$subdomain.$domain" | awk '/ANSWER SECTION:/{getline; printf "The subdomain %s is a %s record and points to %s\n", var, $4, $5}' var="$subdomain"
+    result=$(dig "$subdomain.$domain" | grep -A1 'ANSWER SECTION:')
+    record_type=$(echo "$result" | awk '{print $5}')
+    destination=$(echo "$result" | awk '{print $6}')
+    echo "The subdomain $subdomain is a $record_type record and points to $destination"
 }
 
-for subdomain in "www" "lb-01" "web-01" "web-02"
-do
-    if [ -z "$2" ] || [ "$2" == "$subdomain" ] ;
-    then
-	display_info "$1" "$subdomain"
-    fi
-done
+# Check if a subdomain argument was provided
+if [ $# -eq 2 ]
+then
+    display_info "$1" "$2"
+else
+    # Display information for default subdomains
+    display_info "$1" "www"
+    display_info "$1" "lb-01"
+    display_info "$1" "web-01"
+    display_info "$1" "web-02"
+fi
