@@ -5,4 +5,3 @@ sed -i 's/listen\(.*\)80;/listen 8080/' /etc/nginx/sites-available/default
 echo -e '#!/usr/bin/env bash\nnginx -g "daemon off;"' > /root/run_nginx.sh
 chmod +x /root/run_nginx.sh
 service nginx start
-
