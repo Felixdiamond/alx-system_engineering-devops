@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# A shorter fix for task#1
+sed -i 's/user .*/user nginx/' /etc/nginx/nginx.conf
+sed -i 's/listen\(.*\)80;/listen 8080/' /etc/nginx/sites-available/default
+echo -e '#!/usr/bin/env bash\nnginx -g "daemon off;"' > /root/run_nginx.sh
+chmod +x /root/run_nginx.sh
+service nginx start
+
