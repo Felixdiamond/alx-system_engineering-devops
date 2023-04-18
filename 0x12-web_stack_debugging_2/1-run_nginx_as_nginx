@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# This script configures the container to run Nginx as the nginx user and listen on port 8080
+
+# Stop any running instances of Nginx
+killall nginx
+
+# Change ownership of Nginx directories to the nginx user
+chown -R nginx:nginx /etc/nginx/ /var/log/nginx /var/lib/nginx /var/www/html
+
+# Change user and group settings in Nginx configuration files
+sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf
+sed -i 's/# server_names_hash_bucket_size 64;/server_names_hash_bucket_size 64;/' /etc/nginx/nginx.conf
+
+# Start Nginx
+nginx -g 'daemon off;'
+
