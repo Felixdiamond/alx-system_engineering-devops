@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # A shorter fix for task#1
-sed -i 's/user .*/user nginx/' /etc/nginx/nginx.conf
-sed -i 's/listen\(.*\)80;/listen 8080/' /etc/nginx/sites-available/default
-echo -e '#!/usr/bin/env bash\nnginx -g "daemon off;"' > /root/run_nginx.sh
-chmod +x /root/run_nginx.sh
-service nginx start
+sudo chown nginx /etc/nginx/nginx.conf
+sudo chmod u+rw /etc/nginx/nginx.conf
+pkill apache
+sudo sed -i 's/80 default_server/8080 default_server/g' /etc/nginx/sites-available/default
+sudo -u nginx service nginx restart
