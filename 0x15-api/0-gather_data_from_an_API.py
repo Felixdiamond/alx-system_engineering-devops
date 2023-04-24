@@ -25,6 +25,7 @@ if __name__ == "__main__":
     done_tasks = len(completed_tasks)
     user_name = user_json.get("name")
 
-    print("Employee {} is done with tasks({}/{}):".format(user_name, done_tasks, total_tasks))
+    print("Employee {} is done with tasks({}/{}):".format(user_name,
+          done_tasks, total_tasks))
     for task in completed_tasks:
         print("\t {}".format(task.get("title")))
