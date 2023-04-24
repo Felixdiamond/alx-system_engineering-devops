@@ -1,5 +1,11 @@
 #!/usr/bin/python3
-""" Export user tasks to CSV """
+"""
+This module provides functions to read and write CSV files.
+
+Functions:
+    read_csv: Read data from a CSV file.
+    write_csv: Write data to a CSV file.
+"""
 import csv
 import requests
 from sys import argv
