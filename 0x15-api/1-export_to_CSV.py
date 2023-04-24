@@ -8,13 +8,14 @@ Functions:
 """
 import csv
 
+
 def read_csv(filename):
     """
     Read data from a CSV file and return a list of dictionaries.
-    
+
     Args:
         filename (str): Name of the CSV file to read.
-    
+
     Returns:
         list: List of dictionaries where each dictionary represents a row of data.
     """
@@ -23,10 +24,11 @@ def read_csv(filename):
         data = [row for row in reader]
     return data
 
+
 def write_csv(filename, data):
     """
     Write data to a CSV file.
-    
+
     Args:
         filename (str): Name of the CSV file to write.
         data (list): List of dictionaries where each dictionary represents a row of data.
