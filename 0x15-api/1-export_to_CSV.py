@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 """
 This module provides functions to read and write CSV files.
 
@@ -7,16 +6,31 @@ Functions:
     write_csv: Write data to a CSV file.
 """
 import csv
-import requests
-from sys import argv
 
+def read_csv(filename):
+    """
+    Read data from a CSV file and return a list of dictionaries.
+    
+    Args:
+        filename (str): Name of the CSV file to read.
+    
+    Returns:
+        list: List of dictionaries where each dictionary represents a row of data.
+    """
+    with open(filename, 'r') as csvfile:
+        reader = csv.DictReader(csvfile)
+        data = [row for row in reader]
+    return data
 
-user_id = argv[1] if argv[1:] else 1
-    FILENAME = user_id + ".csv"
-    url = 'https://jsonplaceholder.typicode.com/'
-    user = rq.get(url + 'users/{}'.format(user_id)).json()
-    tasks = rq.get(url + 'users/{}/todos'.format(user_id)).json()
-    with open(FILENAME, 'w', newline='') as f:
-        writer = csv.writer(f, quoting=csv.QUOTE_ALL)
-        [writer.writerow([user_id, user.get('username'), task.get('completed'),
-                          task.get('title')]) for task in tasks]
+def write_csv(filename, data):
+    """
+    Write data to a CSV file.
+    
+    Args:
+        filename (str): Name of the CSV file to write.
+        data (list): List of dictionaries where each dictionary represents a row of data.
+    """
+    with open(filename, 'w') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=data[0].keys())
+        writer.writeheader()
+        writer.writerows(data)
