@@ -1,3 +1,18 @@
+#!/usr/bin/python3
+"""
+number_of_subscribers(subreddit)
+
+Returns the number of subscribers for a given subreddit.
+
+Args:
+  subreddit (str): The name of the subreddit.
+
+Returns:
+  int: The number of subscribers.
+
+Raises:
+  ValueError: If the subreddit is not valid.
+"""
 import requests
 
 def number_of_subscribers(subreddit):
