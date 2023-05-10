@@ -17,9 +17,13 @@ import requests
 from fake_useragent import UserAgent
 ua = UserAgent()
 
+
 def number_of_subscribers(subreddit):
-    response = requests.get('https://api.reddit.com/r/{}/about.json'.format(subreddit), allow_redirects=False, headers={
-                             "User-Agent": ua.random})
+    response = requests.get(
+        'https://api.reddit.com/r/{}/about.json'.format(subreddit),
+        allow_redirects=False,
+        headers={
+            "User-Agent": ua.random})
     if response.status_code == 200:
         data = response.json()
         return data["data"]["subscribers"]
