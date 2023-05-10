@@ -15,12 +15,11 @@ Raises:
   ValueError: If the subreddit is not valid.
 """
 
-from fake_useragent import UserAgent
 import requests
 
 def number_of_subscribers(subreddit):
     response = requests.get('https://api.reddit.com/r/{}/about.json'.format(subreddit), allow_redirects=False, headers={
-                             "User-Agent": ua.random})
+                             "User-Agent": "Ayanokoji/2.1"})
     if response.status_code == 200:
         data = response.json()
         return data["data"]["subscribers"]
