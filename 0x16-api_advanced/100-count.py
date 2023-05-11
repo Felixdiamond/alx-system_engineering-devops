@@ -5,7 +5,7 @@ import requests
 
 def count_words(subreddit, word_list, instances={}, after="", count=0):
     """
-       Queries the Reddit API, parses the title of all hot articles, and prints a
+       Queries the Reddit API, parses the title of all hot articles, returns
        sorted count of given keywords (case-insensitive, delimited by spaces.
        Javascript should count as javascript, but java should not).
 
