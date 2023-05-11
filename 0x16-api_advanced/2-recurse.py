@@ -17,17 +17,12 @@ import requests
 def recurse(subreddit, hot_list=[]):
 
     # Make a request to the Reddit API.
-    try:
         response = requests.get(
             "https://api.reddit.com/r/{}/hot.json?limit=100".format(subreddit),
             allow_redirects=False,
             headers={
                 "User-Agent": "Ayanokoji/2.1"})
-    except requests.exceptions.HTTPError as e:
-        if e.response.status_code == (302, 404):
-            return None
-        else:
-            raise
+
 
     # Check if the request was successful.
     if response.status_code != 200:
