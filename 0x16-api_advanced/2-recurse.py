@@ -19,7 +19,7 @@ def recurse(subreddit, hot_list=[], url):
 
     url = 'https://www.reddit.com/r/{}/hot.json?limit=1'.format(
         subreddit)
-    
+
     # Make a request to the Reddit API.
     response = requests.get(
         url,
