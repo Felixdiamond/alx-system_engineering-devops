@@ -24,7 +24,7 @@ def recurse(subreddit, hot_list=[]):
             headers={
                 "User-Agent": "Ayanokoji/2.1"})
     except requests.exceptions.HTTPError as e:
-        if e.response.status_code == 404:
+        if e.response.status_code == (302, 404):
             return None
         else:
             raise
