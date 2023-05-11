@@ -38,4 +38,4 @@ def top_ten(subreddit):
 
     # Print the titles of the first 10 hot posts.
     for post in data["data"]["children"]:
-        print(post["data"]["title"])
+        print(child["data"]["title"])
