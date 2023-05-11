@@ -14,30 +14,29 @@
 import requests
 
 
-def recurse(subreddit, hot_list=[]):
+def recurse(subreddit, hot_list=[], after="", count=0):
+    """returns a list containing the titles
+    of all hot articles for a given subreddit"""
+    url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
+    headers = {
+        "User-Agent": "Ayanokoji/2.1"
+    }
+    params = {
+        "after": after,
+        "count": count,
+        "limit": 100
+    }
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    if response.status_code == 404:
+        return None
 
-    # Make a request to the Reddit API.
-    response = requests.get(
-        "https://api.reddit.com/r/{}/hot.json?limit=100".format(subreddit),
-        allow_redirects=False,
-        headers={
-            "User-Agent": "Ayanokoji/2.1"})
+    results = response.json().get("data")
+    after = results.get("after")
+    count += results.get("dist")
+    for c in results.get("children"):
+        hot_list.append(c.get("data").get("title"))
 
-    # Check if the request was successful.
-    if response.status_code != 200:
-        print("Error: {} {}".format(response.status_code, response.reason))
-        return
-
-    # Parse the response data.
-    data = response.json()
-
-    # Iterate over the hot articles.
-    for post in data["data"]["children"]:
-        hot_list.append(post["data"]["title"])
-
-    # Check if there are more pages of results.
-    if "after" in data["data"]["after"]:
-        return recurse(subreddit, hot_list, data["data"]["after"])
-
-    # Return the list of hot articles.
+    if after is not None:
+        return recurse(subreddit, hot_list, after, count)
     return hot_list
