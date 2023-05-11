@@ -15,16 +15,6 @@ import requests
 
 
 def recurse(subreddit, hot_list=[]):
-  """
-  Queries the Reddit API and returns a list containing the titles of all hot articles for a given subreddit.
-
-  Args:
-    subreddit: The name of the subreddit to query.
-    hot_list: A list to store the titles of the hot articles.
-
-  Returns:
-    A list containing the titles of the hot articles.
-  """
 
   # Make a request to the Reddit API.
   response = requests.get(
