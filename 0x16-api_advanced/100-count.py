@@ -4,16 +4,18 @@ import requests
 
 
 def count_words(subreddit, word_list, instances={}, after="", count=0):
+    """
+       Queries the Reddit API, parses the title of all hot articles, and prints a 
+       sorted count of given keywords (case-insensitive, delimited by spaces. 
+       Javascript should count as javascript, but java should not).
+
+       Args:
+          subreddit: The name of the subreddit to query.
+          word_list: A list of keywords.
+
+       Returns:
+          A list of tuples containing the keyword and its count.
      """
-  Queries the Reddit API, parses the title of all hot articles, and prints a sorted count of given keywords (case-insensitive, delimited by spaces. Javascript should count as javascript, but java should not).
-
-  Args:
-    subreddit: The name of the subreddit to query.
-    word_list: A list of keywords.
-
-  Returns:
-    A list of tuples containing the keyword and its count.
-  """
     url = "https://www.reddit.com/r/{}/hot/.json".format(subreddit)
     headers = {
         "User-Agent": "Ayanokoji/2.1"
