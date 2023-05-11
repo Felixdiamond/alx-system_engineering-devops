@@ -25,8 +25,7 @@ def recurse(subreddit, hot_list=[]):
                 "User-Agent": "Ayanokoji/2.1"})
     except requests.exceptions.HTTPError as e:
         if e.response.status_code == 404:
-        print("Subreddit {} does not exist.".format(subreddit))
-        return None
+            return None
         else:
             raise
 
