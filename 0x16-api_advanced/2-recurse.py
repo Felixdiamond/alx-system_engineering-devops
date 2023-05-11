@@ -19,10 +19,10 @@ def recurse(subreddit, hot_list=[]):
     # Make a request to the Reddit API.
     try:
         response = requests.get(
-        "https://api.reddit.com/r/{}/hot.json?limit=100".format(subreddit),
-        allow_redirects=False,
-        headers={
-            "User-Agent": "Ayanokoji/2.1"})
+            "https://api.reddit.com/r/{}/hot.json?limit=100".format(subreddit),
+            allow_redirects=False,
+            headers={
+                "User-Agent": "Ayanokoji/2.1"})
     except requests.exceptions.HTTPError as e:
         if e.response.status_code == 404:
         print("Subreddit {} does not exist.".format(subreddit))
