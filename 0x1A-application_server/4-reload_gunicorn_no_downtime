@@ -1,4 +1,19 @@
 #!/usr/bin/env bash
-# Reloads Gunicorn
+# This script gracefully reloads Gunicorn without downtime
 
-ps aux | grep gunicorn | awk '{ print $2 }' | xargs kill -HUP
+set -e
+
+# Get the process ID of the master Gunicorn process
+PID=$(pgrep gunicorn)
+
+# Send a SIGHUP signal to the master process
+kill -HUP "$PID"
+
+# Sleep for a few seconds to allow the workers to gracefully shutdown
+sleep 5
+
+# Start new Gunicorn workers with the updated code or configuration
+gunicorn --bind 0.0.0.0:5003 -w 3 --error-logfile /tmp/airbnb-error.log --access-logfile /tmp/airbnb-access.log web_dynamic.2-hbnb:app
+
+# Display a message indicating the reload is complete
+echo "Gunicorn reload complete."
