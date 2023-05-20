@@ -22,6 +22,7 @@ server {
     # Serve API from AirBnB_clone_v3
     location /api/ {
         proxy_pass http://0.0.0.0:5002;
+	proxy_set_header Host $host;
     }
     
     # 404 error page
