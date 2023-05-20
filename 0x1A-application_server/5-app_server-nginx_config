@@ -15,14 +15,14 @@ server {
     
     # Serve /number_odd_or_even/
     location ~ /airbnb-dynamic/number_odd_or_even/([0-9]+)$ {
-	      proxy_pass http://0.0.0.0:5001/number_odd_or_even/$1;
+	proxy_pass http://0.0.0.0:5001/number_odd_or_even/$1;
         proxy_set_header Host $host;
     }
     
     # Serve API from AirBnB_clone_v3
     location /api/ {
         proxy_pass http://0.0.0.0:5002;
-	      proxy_set_header Host $host;
+	proxy_set_header Host $host;
     }
     
     # Configure /2-hbnb route of AirBnB_clone_v4 as root location
