@@ -15,9 +15,9 @@ server {
     
     # Serve /number_odd_or_even/
     location ~ /airbnb-dynamic/number_odd_or_even/([0-9]+)$ {
-		    proxy_pass http://0.0.0.0:5001/number_odd_or_even/$1;
+	proxy_pass http://0.0.0.0:5001/number_odd_or_even/$1;
         proxy_set_header Host $host;
-	  }
+    }
 
     # 404 error page
     error_page 404 /404.html;
